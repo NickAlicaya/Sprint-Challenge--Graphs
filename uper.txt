@@ -26,3 +26,21 @@
     If an exit has been explored, you can put it in your BFS queue like normal.
 
     BFS will return the path as a list of room IDs. You will need to convert this to a list of n/s/e/w directions before you can add it to your traversal path.
+
+
+
+    # STEP 1:
+
+    # Create an empty queue
+        # add a PATH TO the starting vertex_id to the queue
+        # create an empty dictionary to store visited users and social paths
+        # while the queue is not empty...
+            # dequeue, teh first path
+            # Grab the last vertex from the path
+            # check if it's been visited
+            # if it has not been visited...
+                # mark it as visited
+                    # add it to the visited set, with the path as the key
+                # then add all friends to the back of the queue
+                    # copy the path
+                    # add friend to the path
