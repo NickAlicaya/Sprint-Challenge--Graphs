@@ -108,7 +108,7 @@ def traverse(world, traversal_path):
             # print('this is the next room', next_room)
             visited[initial][next_move] = next_room.id
 
-            # if next room is not in vited then set the next room to empty
+            # if next room is not in visited then set the next room to empty
             if next_room.id not in visited:
                 visited[next_room.id] = {}
 
@@ -116,14 +116,15 @@ def traverse(world, traversal_path):
             #     if next_room.id == test:
             #         print(next_room.id)
 
-            visited[next_room.id][reverse[next_move]] = current_room.id
-            # testing = visited[next_room.id][reverse[next_move]]
             # print(testing)
+            # print(reverse[next_move])
+
+            # push the reverse direction in the stack
             stack.push(reverse[next_move])
 
+            # next loop initial will be the next room id
             initial = next_room.id
-            print('testing', initial)
-
+            print('next loop will be', initial)
 
 traverse(world, traversal_path)
 
