@@ -32,7 +32,9 @@ traversal_path = []
 
 #### CODE START HERE ####
 
-def traverse(world, traversal_path):
+
+
+def traversal(world, traversal_path):
     # construct your own traversal graph You start in room 0, which contains exits
     # ['n', 's', 'w', 'e']. Your starting graph should look something like this:
 
@@ -42,9 +44,6 @@ def traverse(world, traversal_path):
     # initialize current room
     initial = 0
     visited = {0: {}}
-    current_room = world.rooms[initial]
-
-
     reverse = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
     # function to return the direction that is available in a room
@@ -95,38 +94,41 @@ def traverse(world, traversal_path):
         next_move = new_move(visited, current_room)
         # print('this is the next move', next_move)
 
+        # When you reach a dead-end (i.e. a room with no unexplored paths),
+        # walk back to the nearest room that does contain an unexplored path.
         # if next move is equal to None then initiate new_room
         if next_move is None:
             # pop off the room and continue to next room
             initial = new_room(traversal_path, visited, current_room, stack, reverse)
 
         else:
-            # if it has a direction then append to traversal_path
+            # if it has a next move direction then append to traversal_path
             traversal_path.append(next_move)
+
             # set the next_room from the current_room
             next_room = current_room.get_room_in_direction(next_move)
             # print('this is the next room', next_room)
-            visited[initial][next_move] = next_room.id
 
             # if next room is not in visited then set the next room to empty
             if next_room.id not in visited:
                 visited[next_room.id] = {}
 
-            # for test in visited:
-            #     if next_room.id == test:
-            #         print(next_room.id)
-
-            # print(testing)
-            # print(reverse[next_move])
-
             # push the reverse direction in the stack
             stack.push(reverse[next_move])
 
+
+            # for test in visited:
+            #     if next_room.id == test:
+            #         print(next_room.id)
+            # print(testing)
+            # print(reverse[next_move])
+
+
             # next loop initial will be the next room id
             initial = next_room.id
-            print('next loop will be', initial)
+            print('next room during the loop will be', initial)
 
-traverse(world, traversal_path)
+traversal(world, traversal_path)
 
 # TRAVERSAL TEST
 visited_rooms = set()
