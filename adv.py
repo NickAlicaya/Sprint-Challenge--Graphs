@@ -28,6 +28,9 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
+traversal_graph = {
+    0: {'n':'?', 's':'?', 'e':'?', 'w':'?'}
+}
 
 
 
