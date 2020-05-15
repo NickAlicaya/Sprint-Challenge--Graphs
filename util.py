@@ -28,6 +28,11 @@ class Stack():
     def size(self):
         return len(self.stack)
 
+class Node():
+    def __init__(self, value, prev=None):
+        self.value = value
+        self.prev = prev        
+
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
@@ -41,6 +46,9 @@ class Graph:
         if vertex_id not in self.vertices:
             self.vertices[vertex_id] = set()
 
+    def opposite(self,direction):
+        exits = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+        return exits[direction]
         
 
     def add_edge(self, v1, v2):
@@ -50,7 +58,8 @@ class Graph:
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
-            raise IndexError('Vertex does not exist')    
+            raise IndexError('Vertex does not exist')  
+
 
     def get_neighbors(self, vertex_id):
         """
@@ -143,20 +152,20 @@ class Graph:
         while q.size() > 0:
             # Dequeue the first PATH
             cur_path = q.dequeue()
-            print('CURRENT_PATH_XXXXXXX',cur_path)
+            # print('CURRENT_PATH_XXXXXXX',cur_path)
             # Grab the last vertex from the PATH
             cur_path_last_vertex = cur_path[-1]
+
+            # If that vertex has not been visited...
+            if cur_path_last_vertex not in visited:
+                # Mark it as visited...
+                visited.add(cur_path_last_vertex)
+                    
+           
             # CHECK IF IT'S THE TARGET
             if cur_path_last_vertex == destination_vertex:
                 # IF SO, RETURN PATH
                 return cur_path
-
-            # If that vertex has not been visited...
-            if cur_path_last_vertex not in visited:
-                    
-           
-                # Mark it as visited...
-                visited.add(cur_path_last_vertex)
 
                 # Then add A PATH TO its neighbors to the back of the queue
                 for n in self.get_neighbors(cur_path_last_vertex):
